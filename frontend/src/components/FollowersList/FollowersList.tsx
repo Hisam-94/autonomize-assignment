@@ -1,6 +1,6 @@
-import React from 'react';
-import { GithubUser } from '../types';
-import './FollowersList.css';
+import React from "react";
+import { GithubUser } from "../../types";
+import "./FollowersList.css";
 
 interface FollowersListProps {
   followers: GithubUser[];
@@ -8,10 +8,10 @@ interface FollowersListProps {
   onBack: () => void;
 }
 
-const FollowersList: React.FC<FollowersListProps> = ({ 
-  followers, 
+const FollowersList: React.FC<FollowersListProps> = ({
+  followers,
   onSelectFollower,
-  onBack 
+  onBack,
 }) => {
   return (
     <div className="followers-container">
@@ -23,22 +23,19 @@ const FollowersList: React.FC<FollowersListProps> = ({
       </div>
 
       <div className="followers-grid">
-        {followers.map(follower => (
-          <div 
+        {followers.map((follower) => (
+          <div
             key={follower.login}
             className="follower-card"
-            onClick={() => onSelectFollower(follower.login)}
-          >
-            <img 
-              src={follower.avatar_url} 
+            onClick={() => onSelectFollower(follower.login)}>
+            <img
+              src={follower.avatar_url}
               alt={follower.login}
-              className="follower-avatar" 
+              className="follower-avatar"
             />
             <div className="follower-info">
               <h3>{follower.name || follower.login}</h3>
-              {follower.bio && (
-                <p className="follower-bio">{follower.bio}</p>
-              )}
+              {follower.bio && <p className="follower-bio">{follower.bio}</p>}
             </div>
           </div>
         ))}

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Repository } from '../types';
-import './RepoDetails.css';
+import React from "react";
+import { Repository } from "../../types";
+import "./RepoDetails.css";
 
 interface RepoDetailsProps {
   repository: Repository;
@@ -17,28 +17,29 @@ const RepoDetails: React.FC<RepoDetailsProps> = ({ repository, onBack }) => {
       <button onClick={onBack} className="back-button">
         ← Back to Repositories
       </button>
-      
+
       <div className="repo-header">
         <h2>{repository.name}</h2>
-        <a 
-          href={repository.html_url} 
-          target="_blank" 
+        <a
+          href={repository.html_url}
+          target="_blank"
           rel="noopener noreferrer"
-          className="github-link"
-        >
+          className="github-link">
           View on GitHub
         </a>
       </div>
 
       <div className="repo-info">
         <p className="description">
-          {repository.description || 'No description available'}
+          {repository.description || "No description available"}
         </p>
-        
+
         <div className="meta-info">
           <div className="meta-item">
             <span className="label">Language:</span>
-            <span className="value">{repository.language || 'Not specified'}</span>
+            <span className="value">
+              {repository.language || "Not specified"}
+            </span>
           </div>
           <div className="meta-item">
             <span className="label">Stars:</span>

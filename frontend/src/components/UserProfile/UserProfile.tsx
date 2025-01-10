@@ -1,6 +1,6 @@
-import React from 'react';
-import { UserDetails } from '../types';
-import './UserProfile.css';
+import React from "react";
+import { UserDetails } from "../../types";
+import "./UserProfile.css";
 
 interface UserProfileProps {
   user: UserDetails;
@@ -18,7 +18,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onViewFollowers }) => {
           {user.location && <p className="location">{user.location}</p>}
         </div>
       </div>
-      
+
       <div className="stats">
         <div className="stat-item">
           <span className="stat-value">{user.public_repos}</span>

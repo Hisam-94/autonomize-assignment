@@ -1,20 +1,67 @@
+// import { NextFunction, Request, Response, RequestHandler } from 'express';
+// import User from '../models/User';
+// import { ApiError } from '../middleware/errorHandler';
+// import { getGithubUser, getGithubUserFollowers, getGithubUserFollowing } from '../utils/githubApi';
+
+// export const saveGithubUser = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   try {
+//     const { username } = req.params;
+    
+//     // Check if user exists and is not deleted
+//     let user = await User.findOne({ login: username, deleted: false });
+//     if (user) {
+//       return res.json(user);
+//     }
+
+//     // Fetch from GitHub API
+//     const [userData, followers, following] = await Promise.all([
+//       getGithubUser(username),
+//       getGithubUserFollowers(username),
+//       getGithubUserFollowing(username)
+//     ]);
+
+//     // Find mutual followers (friends)
+//     const friends = followers.filter(f => following.includes(f));
+
+//     // Create new user
+//     user = await User.create({
+//       ...userData,
+//       followers_list: followers,
+//       following_list: following,
+//       friends
+//     });
+//     res.status(201).json(user);
+//   } catch (error) {
+//     next(new ApiError(404, 'User not found or error fetching data'));
+//   }
+// };
+
 import { NextFunction, Request, Response, RequestHandler } from 'express';
 import User from '../models/User';
 import { ApiError } from '../middleware/errorHandler';
 import { getGithubUser, getGithubUserFollowers, getGithubUserFollowing } from '../utils/githubApi';
 
-export const saveGithubUser = async (
-  req: Request,
+interface GithubUserParams {
+  username: string;
+}
+
+export const saveGithubUser: RequestHandler<GithubUserParams> = async (
+  req: Request<GithubUserParams>,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {  // Explicitly specify Promise<void>
   try {
     const { username } = req.params;
     
     // Check if user exists and is not deleted
     let user = await User.findOne({ login: username, deleted: false });
     if (user) {
-      return res.json(user);
+      res.json(user);
+      return;
     }
 
     // Fetch from GitHub API
@@ -34,11 +81,13 @@ export const saveGithubUser = async (
       following_list: following,
       friends
     });
+    
     res.status(201).json(user);
   } catch (error) {
     next(new ApiError(404, 'User not found or error fetching data'));
   }
 };
+
 export const searchUsers = async (
   req: Request,
   res: Response,

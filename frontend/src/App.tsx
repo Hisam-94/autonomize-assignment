@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import SearchBar from './components/SearchBar';
-import UserProfile from './components/UserProfile';
-import RepoList from './components/RepoList';
-import RepoDetails from './components/RepoDetails';
-import FollowersList from './components/FollowersList';
-import api from './services/api';
-import { UserDetails, Repository, GithubUser } from './types';
-import './App.css';
+import React, { useState } from "react";
+import SearchBar from "./components/SearchBar/SearchBar.tsx";
+import UserProfile from "./components/UserProfile/UserProfile.tsx";
+import RepoList from "./components/RepoList/RepoList.tsx";
+import RepoDetails from "./components/RepoDetails/RepoDetails.tsx";
+import FollowersList from "./components/FollowersList/FollowersList.tsx";
+import api from "./services/api.ts";
+import { UserDetails, Repository, GithubUser } from "./types";
+import "./App.css";
 
 const App: React.FC = () => {
   const [user, setUser] = useState<UserDetails | null>(null);
@@ -23,13 +23,13 @@ const App: React.FC = () => {
     try {
       const userData = await api.getUser(username);
       const repos = await api.getUserRepositories(username);
-      
+
       setUser(userData);
       setRepositories(repos);
       setSelectedRepo(null);
       setShowFollowers(false);
     } catch (err) {
-      setError('Error fetching user data. Please try again.');
+      setError("Error fetching user data. Please try again.");
       setUser(null);
       setRepositories([]);
     } finally {
@@ -39,14 +39,14 @@ const App: React.FC = () => {
 
   const handleViewFollowers = async () => {
     if (!user) return;
-    
+
     setLoading(true);
     try {
       const { data } = await api.getUserFollowers(user.login);
       setFollowers(data);
       setShowFollowers(true);
     } catch (err) {
-      setError('Error fetching followers. Please try again.');
+      setError("Error fetching followers. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -66,19 +66,22 @@ const App: React.FC = () => {
         {user && !showFollowers && !selectedRepo && (
           <>
             <UserProfile user={user} onViewFollowers={handleViewFollowers} />
-            <RepoList repositories={repositories} onSelectRepo={setSelectedRepo} />
+            <RepoList
+              repositories={repositories}
+              onSelectRepo={setSelectedRepo}
+            />
           </>
         )}
 
         {selectedRepo && (
-          <RepoDetails 
-            repository={selectedRepo} 
-            onBack={() => setSelectedRepo(null)} 
+          <RepoDetails
+            repository={selectedRepo}
+            onBack={() => setSelectedRepo(null)}
           />
         )}
 
         {showFollowers && (
-          <FollowersList 
+          <FollowersList
             followers={followers}
             onSelectFollower={handleSearch}
             onBack={() => setShowFollowers(false)}
