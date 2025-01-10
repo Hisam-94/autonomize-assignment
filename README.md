@@ -1,4 +1,4 @@
-# GitHub Explorer
+# Autonomize-assignment
 
 A full-stack application for exploring GitHub users, their repositories, and connections.
 
@@ -37,8 +37,8 @@ A full-stack application for exploring GitHub users, their repositories, and con
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd github-explorer
+git clone https://github.com/Hisam-94/autonomize-assignment.git
+cd autonomize-assignment
 ```
 
 2. Install backend dependencies:
@@ -78,7 +78,7 @@ The application will be available at `http://localhost:3000`
 ## Project Structure
 
 ```
-github-explorer/
+autonomize-assignment/
 ├── backend/
 │   ├── src/
 │   │   ├── config/
