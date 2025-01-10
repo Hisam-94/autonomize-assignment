@@ -16,6 +16,9 @@ app.use(express.json());
 
 // Routes
 app.use('/api', userRoutes);
+app.get('/', (req, res) => {
+    res.send('The server is running');
+})
 
 // Error handling
 app.use(errorHandler);
