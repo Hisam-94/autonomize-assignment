@@ -1,13 +1,12 @@
 import { NextFunction, Request, Response, RequestHandler } from 'express';
-const express = require('express');
 import User from '../models/User';
 import { ApiError } from '../middleware/errorHandler';
 import { getGithubUser, getGithubUserFollowers, getGithubUserFollowing } from '../utils/githubApi';
 
-export const saveGithubUser: RequestHandler = async (
-  req,
-  res,
-  next
+export const saveGithubUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) => {
   try {
     const { username } = req.params;
