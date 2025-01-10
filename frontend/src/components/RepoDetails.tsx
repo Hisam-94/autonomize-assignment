@@ -1,5 +1,5 @@
 import React from 'react';
-import { Repository } from '../../types';
+import { Repository } from '../types';
 import './RepoDetails.css';
 
 interface RepoDetailsProps {
